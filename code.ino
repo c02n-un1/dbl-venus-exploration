@@ -27,50 +27,63 @@ char algo(int data[3]){
     if (US_check==0){
       
       if ((IR_obst_check==0) && (IR_rock_check==0)){
-        //initial direction
+        right=0;
         Serial.print(directionnow);
+        Serial.print("\n");
         return 'f';
     
       } else if (IR_rock_check==1){
         mode=1;
+        right=0;
         Serial.print(directionnow);
+        Serial.print("\n");
         return 'f'; 
         
       } else if (IR_obst_check==1){
         if (right==0){
           right=1;
-          if (directionnow!=-2){
-            directionnow+=1;
-          }else if (directionnow=-2){
-            directionnow=1;
-            }
+          if (directionnow==2){
+            directionnow=-1; //does right turn 
+          }else if (directionnow==-2){
+            directionnow=1; //right turn 
+            }else{
+            directionow+=1 //right turn 
+            } 
+          
           Serial.print(directionnow);
+          Serial.print('\n');
           return 'r';
           }
         else{
-          right=0;
-          directionnow=directionnow*-1;
-          Serial.print(directionnow);;
-          return 'b';
+          // already a right taken, now will turn left (180 degree flip)
+          right=0; //resets to zero after taking a left turn/180 flip
+          directionnow=directionnow*-1; //180 flip
+          Serial.print(directionnow);
+          Serial.print('\n');
+          return 'b'; 
         }
         
       }
       
     } else {
+      // no right turns taken yet( rests after every move forward)
       if (right==0){
           right=1;
-          if (directionnow!=-2){
-            directionnow+=1;
-          }else if(directionnow==-2){
+         if (directionnow==2){
+            directionnow=-1;
+          }else if (directionnow==-2){
             directionnow=1;
-          }
+            }else{
+            directionow+=1}
           Serial.print(directionnow);
+          Serial.print('\n')
           return 'r';
           }
       else{
         right=0;
         directionnow=directionnow*-1;
         Serial.print(directionnow);
+        Serial.print('\n');
         return 'b';
         }
     }
