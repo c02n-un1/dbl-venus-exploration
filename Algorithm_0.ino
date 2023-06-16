@@ -238,18 +238,20 @@ boolean turncheck(int turncount){
 char algodirection_0(){
 
   if(double_turn == 0){
-    double_turn++;
+    // check whether 180 turn should be done or not
+    double_turn++; //incrementing double turn
     switch(dirchar(directionnow)){
       default:
         return '\0';
         break;
       case 'N':
+        //turncheck() checks if number of turns taken is even or odd
         if(turncheck(turncount)){
-          directionnow = 2;
-          return 'r';
+          directionnow = 2; //robot is facing east
+          return 'r'; //right turn
         }else{
-          directionnow = -2;
-          return 'l';
+          directionnow = -2; //robot is facing west
+          return 'l'; //left turn
         }
         break;
       case 'S':
@@ -257,7 +259,7 @@ char algodirection_0(){
           directionnow = -2;
           return 'r';
         }else{
-          directionnow = 2;
+          directionnow = 2; //robot is facing east
           return 'l';
         }
         break;
