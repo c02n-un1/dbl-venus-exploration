@@ -135,11 +135,13 @@ boolean xbee_init(int nr_sec) {
   
   
   if(first_check == false || second_check == false){
+    Serial.print("Communication FAILED");
     digitalWrite(led_red,HIGH);
     delay(5000);
     digitalWrite(led_red,LOW);
     return false;
   }else{
+    Serial.print("Communication SUCCESSFUL");
     digitalWrite(led_green,HIGH);
     delay(5000);
     digitalWrite(led_green,LOW);
@@ -654,6 +656,8 @@ char algo_2(){
 void setup() {
   Serial.begin(9600);
   communication_setup();
+  
+  
   // pinMode(led_red,OUTPUT);
   // pinMode(led_green,OUTPUT);
   // sensors_setup();
