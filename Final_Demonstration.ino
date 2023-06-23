@@ -9,8 +9,8 @@
 #define pin_master 6
 
 String str_message;
-boolean xbee_connected = true;
-boolean xbee_master = true;
+boolean xbee_connected = false;
+boolean xbee_master = false;
 
 //Algorithm
 #define grid_size 12
@@ -164,7 +164,7 @@ void communication_setup() {
   }
   digitalWrite(7,LOW);
   
-  xbee_connected = xbee_init(10); // initializes communication between xbees
+  xbee_connected = xbee_init(20); // initializes communication between xbees
 }
 
 
@@ -653,52 +653,53 @@ char algo_2(){
 
 void setup() {
   Serial.begin(9600);
-  pinMode(led_red,OUTPUT);
-  pinMode(led_green,OUTPUT);
-  sensors_setup();
+  communication_setup();
+  // pinMode(led_red,OUTPUT);
+  // pinMode(led_green,OUTPUT);
+  // sensors_setup();
 
-  grapClose();
+  // grapClose();
   delay(2000);
 }
 
 void loop() {
-  if(mode == 0){
-    movement('f');
-    if(turn_delay < millis()-t_turn){
-      double_turn=0;
-    }
+  // if(mode == 0){
+  //   movement('f');
+  //   if(turn_delay < millis()-t_turn){
+  //     double_turn=0;
+  //   }
     
-    if(ultra_sense() || cliff_sense() || rock_sense()){
-      servo_deatach();
-      algo_out = algo_0();
-      Serial.print("Algo out = ");
-      Serial.print(algo_out);
-      Serial.print("\n");
-      if(algo_out != '\0'){
-        movement(algo_out);
-      }else{
-        digitalWrite(led_green, HIGH);
-        delay(2000);
-        digitalWrite(led_green, LOW);
-      }
-    }
-  }else if(mode == 1){
+  //   if(ultra_sense() || cliff_sense() || rock_sense()){
+  //     servo_deatach();
+  //     algo_out = algo_0();
+  //     Serial.print("Algo out = ");
+  //     Serial.print(algo_out);
+  //     Serial.print("\n");
+  //     if(algo_out != '\0'){
+  //       movement(algo_out);
+  //     }else{
+  //       digitalWrite(led_green, HIGH);
+  //       delay(2000);
+  //       digitalWrite(led_green, LOW);
+  //     }
+  //   }
+  // }else if(mode == 1){
     
-    turnLeft(10);
-    grapOpen();
-    goForward(450);
-    grapClose();
-    mode = 2;
-  }else if(mode == 2){
-    movement('f');
-    if(cliff_sense()){
-      goForward(300);
-      grapOpen();
-      digitalWrite(led_green, HIGH);
-      delay(3000);
-      digitalWrite(led_green, LOW);
-      mode = 3;
-    }    
-  }
+  //   turnLeft(10);
+  //   grapOpen();
+  //   goForward(450);
+  //   grapClose();
+  //   mode = 2;
+  // }else if(mode == 2){
+  //   movement('f');
+  //   if(cliff_sense()){
+  //     goForward(300);
+  //     grapOpen();
+  //     digitalWrite(led_green, HIGH);
+  //     delay(3000);
+  //     digitalWrite(led_green, LOW);
+  //     mode = 3;
+  //   }    
+  // }
     
 }
